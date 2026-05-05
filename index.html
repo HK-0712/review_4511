@@ -172,8 +172,10 @@
         let globalFiles = {};
 
         function init() {
-            // Load preloaded project
-            addProjectToTree("Workshop7_trial", PRELOADED_DATA);
+            // Load preloaded projects
+            Object.keys(PRELOADED_DATA).forEach(projectName => {
+                addProjectToTree(projectName, PRELOADED_DATA[projectName]);
+            });
             
             hamburger.addEventListener('click', () => {
                 sidebar.classList.toggle('open');
@@ -311,7 +313,8 @@
             const ext = node.name.split('.').pop().toLowerCase();
             let lang = 'markup';
             if (ext === 'java') lang = 'java';
-            if (ext === 'jsp') lang = 'jsp';
+            // Force .jsp to use html (markup) view mode as requested
+            if (ext === 'jsp') lang = 'markup'; 
             if (ext === 'js') lang = 'javascript';
             if (ext === 'css') lang = 'css';
             
